@@ -23,12 +23,12 @@ cat << EOF >.s3curl
 EOF
 
 # Create test file to be copied to the remote machine
-k=1
+k=0
 while [ $k -le $FILES ]
 do
 
 # Write the files concurrently
-    i=0
+    i=1
     while [ $i -le ${NUMCONCURRENT} -a $k -le $FILES ]
     do
         dd if=$IF of=$WRITEDIR/file_${TESTFILE_SIZE_KB}_$k bs=${TESTFILE_SIZE_KB} count=1024 2>&1 | sed -e "s/^/write $i: /" > $output &
@@ -59,12 +59,12 @@ swift post ${WRITECONTAINER} 1>> $output 2>$error
 
 # Loop over all files that will be created on the remote machine to do the read
 # tests
-k=1
+k=0
 while [ $k -le $FILES ]
 do
 
 # Write the files concurrently
-    i=0
+    i=1
     while [ $i -le ${NUMCONCURRENT} -a $k -le $FILES ]
     do
         cd ${WRITEDIR}

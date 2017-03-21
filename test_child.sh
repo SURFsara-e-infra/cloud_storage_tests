@@ -69,7 +69,6 @@ test_write () {
     j=`expr $i % $FILES`
     START=`timer_start`
     cd ${WRITEDIR}
-    ls file_${TESTFILE_SIZE_KB}_$j
     swift upload ${WRITECONTAINER} -S ${CHUNK} file_${TESTFILE_SIZE_KB}_$j >/dev/null 2>&1
 #    ./s3curl.pl --multipart-chunk-size-mb=${CHUNK_MB} --id=${USERNAME} --put=file_${TESTFILE_SIZE_KB}_$j -- -s -v https://${HOST}/${WRITECONTAINER}/file_${TESTFILE_SIZE_KB}_$j >/dev/null 2>&1 
 #    curl -s -S ${OS_STORAGE_URL}/${WRITECONTAINER}/file_${TESTFILE_SIZE_KB}_$j -X PUT -H "X-Auth-Token: $OS_AUTH_TOKEN" -T file_${TESTFILE_SIZE_KB}_$j 
